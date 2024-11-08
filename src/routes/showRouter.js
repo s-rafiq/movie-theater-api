@@ -54,56 +54,16 @@ router.delete("/shows/:id", async (req, res) => {
     res.status(200).json({ message: "Show deleted successfully", deletedShow })
 })
 
-// router.get("/shows/:genre", async (req, res) => {
-//     const genre = req.params.genre;  // Get genre from URL params
-//     console.log("Genre received: ", genre);  // Check if genre is being passed correctly
-//     const shows = await Show.findAll({
-//         where: { genre: genre }
-//     });
-//     res.json(shows);  // Return shows in JSON format
-// });
-
-
-// http://localhost:3000/shows/action
-
-
-// router.get("/shows", async (req, res) => {
-//     const genre = req.query.genre; // get genre from query string (not URL params)
-    
-//     // Query the database for shows that match the genre
-//     const shows = await Show.findAll({
-//         where: { genre: genre } // Ensure Show model has a 'genre' field
-//     });
-
-//     res.json(shows); // Return the shows in JSON format
-// });
-
-
-
-// http://localhost:3000/shows?genre=action
-
-
-
-const { Op } = require("sequelize");
-
-router.get('/', async (req, res) => {
-    const genre = req.query.genre; // Access genre from query string
-    if (genre) {
-        // Perform a case-insensitive search for shows with the specified genre
-        const shows = await Show.findAll({
-            where: {
-                genre: {
-                    [Op.iLike]: genre // Case-insensitive search for genre
-                }
-            }
-        });
-        res.status(200).json(shows); // Return filtered shows
-    } else {
-        // If no genre is specified, return all shows
-        const shows = await Show.findAll()
-        res.status(200).json(shows)
-    }
+router.get("/shows/genre/:genre", async (req, res) => {
+    const genre = req.params.genre;  // Get genre from URL params
+    console.log("Genre received: ", genre);  // Check if genre is being passed correctly
+    const shows = await Show.findAll({
+        where: { genre: genre }
+    });
+    res.json(shows);  // Return shows in JSON format
 });
+
+
 
 
 module.exports = router
